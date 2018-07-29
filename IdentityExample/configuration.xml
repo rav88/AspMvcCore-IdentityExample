@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+	<ConnectionStrings>
+		<DefaultConnection>Data source=.; Initial Catalog=iMvcDb; Integrated Security=true</DefaultConnection>
+	</ConnectionStrings>
+</Configuration>
