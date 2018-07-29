@@ -25,6 +25,28 @@ namespace IdentityExample.Controllers
 			return View();
 		}
 
+		[HttpPost]
+		public async Task<IActionResult> Login(LogInViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var loginResult = await _signInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, false);
+
+				if (loginResult.Succeeded)
+				{
+					TempData["Message"] = "Zalogowano pomyślnie";
+
+					return RedirectToAction("Index", "Home");
+				}
+				else
+				{
+					ModelState.AddModelError("", "Nie można zalogować. Sprawdź poprawność hasła i loginu");
+				}
+			}
+
+			return View(model);
+		}
+
 	    public IActionResult Register()
 	    {
 		    return View();
@@ -41,7 +63,9 @@ namespace IdentityExample.Controllers
 
 				if (result.Succeeded)
 			    {
-				    return RedirectToAction("Index", "Home");
+					await _signInManager.PasswordSignInAsync(model.Login, model.Password, false, false);
+
+					return RedirectToAction("Index", "Home");
 				}
 
 			    foreach (var error in result.Errors)
@@ -52,5 +76,14 @@ namespace IdentityExample.Controllers
 
 		    return View(model);
 	    }
+
+		public async Task<IActionResult> Logout()
+		{
+			await _signInManager.SignOutAsync();
+
+			TempData["Message"] = "Zostałeś wylogowany pomyślnie";
+
+			return RedirectToAction("Index", "Home");
+		}
 	}
 }

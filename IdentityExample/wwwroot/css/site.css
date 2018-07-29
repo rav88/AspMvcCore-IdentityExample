@@ -33,3 +33,11 @@
         display: none;
     }
 }
+
+.message-box {
+	margin: 0 auto;
+	width: 100%;
+	padding: 20px;
+	background: #8888FF;
+	border: 1px solid #0000AA;
+}
