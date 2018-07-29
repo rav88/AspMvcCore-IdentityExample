@@ -11,6 +11,8 @@ namespace IdentityExample.Controllers
 {
     public class HomeController : Controller
     {
+
+		#region Dependency Injection
 		private readonly RoleManager<IdentityRole> _roleManager;
 
 		private readonly UserManager<IdentityUser> _identityUser;
@@ -20,6 +22,7 @@ namespace IdentityExample.Controllers
 			_roleManager = roleManager;
 			_identityUser = identityUser;
 		}
+		#endregion
 
 		public async Task<IActionResult> Index()
         {

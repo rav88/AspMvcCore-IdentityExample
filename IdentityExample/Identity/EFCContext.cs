@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using JetBrains.Annotations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace IdentityExample.Identity
 {
@@ -9,5 +11,14 @@ namespace IdentityExample.Identity
 	    {
 
 	    }
-    }
+
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			base.OnConfiguring(optionsBuilder);
+
+			var loggerFactory = new LoggerFactory();
+			loggerFactory.AddProvider(new LoggerProvider());
+			optionsBuilder.UseLoggerFactory(loggerFactory);
+		}
+	}
 }
